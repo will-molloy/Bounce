@@ -8,7 +8,7 @@ package bounce;
  *
  */
 public class GemShape extends Shape {
-	// SECOND COMMIT!
+	
 	public GemShape(){
 		super();
 	}
