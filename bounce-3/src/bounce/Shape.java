@@ -11,7 +11,7 @@ import java.util.List;
  * a common movement algorithm. Shape subclasses must override method paint()
  * to handle shape-specific painting.
  * 
- * @author Ian Warren
+ * @author Ian Warren, Will Molloy
  * 
  */
 public abstract class Shape {

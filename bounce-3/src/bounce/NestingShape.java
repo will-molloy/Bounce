@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Class to represent a NestingShape: A shape which can contain other shapes.
- * @author Will
+ * @author Will Molloy
  */
 public class NestingShape extends Shape {
 

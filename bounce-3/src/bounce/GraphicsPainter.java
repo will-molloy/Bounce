@@ -9,7 +9,7 @@ import java.awt.Image;
  * Implementation of the Painter interface that delegates drawing to a
  * java.awt.Graphics object.
  * 
- * @author Ian Warren -- Updated by Will Molloy
+ * @author Ian Warren, Will Molloy
  * 
  */
 public class GraphicsPainter implements Painter {

@@ -18,7 +18,7 @@ import bounce.ShapeModelListener;
  * converts them into TreeModelEvents and fires them at TreeModelListeners
  * such that the TreeModel is updated in conjunction with the ShapeModel.
  * 
- * @author Will
+ * @author Will Molloy
  *
  */
 public class Task2 extends Task1 implements ShapeModelListener{

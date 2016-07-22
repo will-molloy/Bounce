@@ -11,7 +11,7 @@ import bounce.ShapeModel;
 /**
  * Task1 is a ShapeModel -> TreeModel adapter class, it allows the
  * ShapeModel class to be compatible with the JTree component TreeModel.
- * @author Will
+ * @author Will Molloy
  */
 public class Task1 implements TreeModel {
 

@@ -60,7 +60,7 @@ import bounce.views.TableModelAdapter;
  * properties from the bounce.properties file, one of which is the name of a
  * ShapeFactory implementation class that is used to create Shapes on request. 
  * 
- * @author Ian Warren
+ * @author Ian Warren, Will Molloy
  * 
  */
 @SuppressWarnings({ "serial", "unused" })
@@ -93,11 +93,9 @@ public class Bounce extends JPanel {
 	// Shape selected in the JTree view.
 	private Shape _shapeSelected;
 
-	// Pluggable Look and Feel implementation with a combobox
-	private String strings[] = { "Metal", "Motif", "Windows", "Gtk"};
-	@SuppressWarnings("rawtypes")
-	private JComboBox _lookAndFeelComboBox;
-	private JButton _updateLookAndFeel;
+	// JComboxBox to change the look and feel of the GUI
+	private String _looksAndFeels[] = { "Metal", "Motif", "Windows" };
+	private JComboBox<String> _lookAndFeelComboBox;
 
 	/**
 	 * Creates a Bounce object.
@@ -171,9 +169,7 @@ public class Bounce extends JPanel {
 		_model.add(new DynamicRectangleShape(0, 0, 2, 3, 50, 80, Color.RED), child);
 		_model.add(new OvalShape(10,10,2,2, 60, 60), child);
 		_model.add(child, root);
-		
-		OvalAndRectangleShape aggregate = new OvalAndRectangleShape();
-		_model.add(aggregate, root);
+
 	}
 
 	/*
@@ -221,15 +217,12 @@ public class Bounce extends JPanel {
 
 			}
 		});
-
-		/*
-		 * Event Handling for updating the GUI with the LookAndFeel Combox/Update button
-		 */
-		_updateLookAndFeel.addActionListener(new ActionListener() {
+	
+		// Event Handling for updating the GUI with the Look And Feel ComboBox
+		_lookAndFeelComboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String lnf =  (String) _lookAndFeelComboBox.getSelectedItem();
-
 				updateGUILookAndFeel(lnf);
 			}
 		});
@@ -330,11 +323,11 @@ public class Bounce extends JPanel {
 		_newShape = new JButton("New");
 		_deleteShape = new JButton("Delete");
 		_shapeTypes = new JComboBox<Class<? extends Shape>>(_comboBoxModel);
+		
 		/*
 		 * ComboBox for changing the look and feel of the GUI
 		 */
-		_lookAndFeelComboBox = new JComboBox<Object>(strings);
-		_updateLookAndFeel = new JButton("Update Look And Feel");
+		_lookAndFeelComboBox = new JComboBox<String>(_looksAndFeels);
 
 		/*
 		 * Set up a custom renderer for the Combo box. Instead of displaying 
@@ -350,12 +343,10 @@ public class Bounce extends JPanel {
 			}
 		});
 
-
 		controlPanel.add(_newShape);
 		controlPanel.add(_deleteShape);
 		controlPanel.add(_shapeTypes);
 		controlPanel.add(_lookAndFeelComboBox);
-		controlPanel.add(_updateLookAndFeel);
 
 		JPanel top = new JPanel(new BorderLayout());
 		top.add(animationPanel, BorderLayout.CENTER);
@@ -387,9 +378,7 @@ public class Bounce extends JPanel {
 
 	}
 
-	/*
-	 * Updates the GUILookAndFeel when the updateLookAndFeel button is pressed
-	 */
+	// Updates the GUIs LookAndFeel when a different String is selected in the ComboBox
 	private void updateGUILookAndFeel(String lnf){	
 		String lnfName = getLookAndFeelName(lnf);
 		try {
@@ -402,20 +391,16 @@ public class Bounce extends JPanel {
 		SwingUtilities.updateComponentTreeUI( this );
 		this.validate( );
 	}
-
-	/*
-	 * Returns the full String of a LookAndFeel given the String selected in the LookAndFeelComboBox
-	 */
+	
+	// Returns the full String of a LookAndFeel given the String selected in the LookAndFeelComboBox
 	private String getLookAndFeelName(String lnf) {
 		switch(lnf){
-		case "Motif":	
-			return "com.sun.java.swing.plaf.motif.MotifLookAndFeel";
 		case "Metal":
 			return "javax.swing.plaf.metal.MetalLookAndFeel";
+		case "Motif":	
+			return "com.sun.java.swing.plaf.motif.MotifLookAndFeel";
 		case "Windows":
 			return "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
-		case "Gtk":
-			return "javax.swing.plaf.gtk.GTKLookAndFeel"; // if installed
 		default:
 			return "javax.swing.plaf.metal.MetalLookAndFeel";
 		}
